@@ -19,7 +19,10 @@ let character = {
 
 window.onload = function(){
     background = document.getElementById("background");
-    background.height = backgoundHeight;
+    background.height = backgroundHeight;
     background.width = backgroundWidth;
     context = background.getContext("2d") //This is for drawing on the background
+
+    context.fillStyle = "white";
+    context.fillRect(character.x, character.y, character.width, character.height);
 }
