@@ -5,10 +5,10 @@ let backgoundHeight = 640;
 let context;
 
 //character
-let charWidth = 30;
-let charHeight = 50;
-let charX = backgroundWidth/4;
-let charY = backgroundHeight/2;
+let charWidth = 150;
+let charHeight = 80;
+let charX = backgroundWidth/11;
+let charY = backgroundHeight/1.20;
 
 let character = {
     x : charX,
