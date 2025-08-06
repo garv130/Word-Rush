@@ -23,6 +23,12 @@ window.onload = function(){
     background.width = backgroundWidth;
     context = background.getContext("2d") //This is for drawing on the background
 
-    context.fillStyle = "white";
-    context.fillRect(character.x, character.y, character.width, character.height);
+    //context.fillStyle = "white";
+    //context.fillRect(character.x, character.y, character.width, character.height);
+
+    charImg = new Image();
+    charImg.src = "./car.png";
+    charImg.onload = function(){
+    context.drawImage(charImg, character.x, character.y, character.width, character.height);
+    }
 }

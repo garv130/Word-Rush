@@ -4,5 +4,6 @@ body{
 }
 
 #background{
-    background-color: black;
+    /*background-color: black;*/
+    background-image: url("./board.png");
 }
