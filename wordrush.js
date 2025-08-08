@@ -59,6 +59,9 @@ function getRandomWord(maxLength = 6){
         
 }
 
+let backgroundSound = new Audio("./music.mp3")
+backgroundSound.volume = 0.4;
+
 
 window.onload = function(){
     background = document.getElementById("background");
@@ -74,6 +77,16 @@ window.onload = function(){
     charImg.onload = function(){
     context.drawImage(charImg, character.x, character.y, character.width, character.height);
     }
+
+    setInterval(() => {
+        const last = words[words.length - 1];
+        if (last && last.x > backgroundWidth - 200) return
+        getRandomWord().then(wordText => {
+            const x = backgroundWidth;
+            const y = character.y + character.height / 2;
+            words.push(new Word(wordText, x, y, wordSpeed));
+        });
+    }, 3000);
 
     requestAnimationFrame(update);
 }
