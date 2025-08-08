@@ -1,7 +1,8 @@
+let score = 0;
 //background
 let background;
 let backgroundWidth = 640;
-let backgoundHeight = 640;
+let backgroundHeight = 640;
 let context;
 
 //character
