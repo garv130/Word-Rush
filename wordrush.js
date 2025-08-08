@@ -98,4 +98,9 @@ function update(){
 
     context.drawImage(charImg, character.x, character.y, character.width, character.height);
 
+    context.font = "bold 24px Courier New";
+    context.fillStyle = "red";
+    context.textAlign = "left";
+    context.fillText("Typed: " + currentInput, 10, 30);
+
 }
