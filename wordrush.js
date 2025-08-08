@@ -95,6 +95,19 @@ function update(){
     requestAnimationFrame(update);
     context.clearRect(0,0,background.width,background.height)
 
+      for (let i = 0; i < words.length; i++) {
+        words[i].x -= words[i].speed;
+        words[i].draw(i === 0);
+
+        
+        if (
+            words[i].x <= character.x + character.width &&
+            words[i].x + words[i].width >= character.x
+        ) {
+            gameOver()
+        }
+    }
+
 
     context.drawImage(charImg, character.x, character.y, character.width, character.height);
 
@@ -104,3 +117,20 @@ function update(){
     context.fillText("Typed: " + currentInput, 10, 30);
 
 }
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Backspace") {
+        currentInput = currentInput.slice(0, -1);
+    } else if (event.key.length === 1) {
+        currentInput += event.key.toLowerCase();
+        for (let i = 0; i < words.length; i++) {
+  if (currentInput === words[i].text) {
+    words.splice(i, 1); 
+    currentInput = "";
+    score += 1;                       
+    wordSpeed = Math.min(wordSpeed + 0.2, 6);
+    break;
+  }
+}
+    }
+});
