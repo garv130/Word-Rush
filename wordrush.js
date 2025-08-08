@@ -20,7 +20,7 @@ let character = {
 
 let words = [];
 let currentInput = "";
-let wordSpeed = 2;
+let wordSpeed = 1.5;
 
 //words
 class Word{
@@ -44,6 +44,19 @@ class Word{
         this.draw();
     }
 
+}
+function getRandomWord(maxLength = 6){
+    return fetch("https://random-word-api.herokuapp.com/word")
+        .then(response => response.json())
+        .then(data => {
+        let word = data[0];
+            
+            if (word.length > maxLength) {
+                return getRandomWord(maxLength); 
+            }
+            return word;
+        })
+        
 }
 
 
