@@ -86,7 +86,7 @@ window.onload = function(){
             const y = character.y + character.height / 2;
             words.push(new Word(wordText, x, y, wordSpeed));
         });
-    }, 3000);
+    }, 2000);
 
     requestAnimationFrame(update);
 }
@@ -94,6 +94,13 @@ window.onload = function(){
 function update(){
     requestAnimationFrame(update);
     context.clearRect(0,0,background.width,background.height)
+    context.save();
+    context.font = "bold 24px Courier New";
+    context.fillStyle = "black";
+    context.textAlign = "right";
+    context.fillText("Score: " + score, backgroundWidth - 10, 30);
+    context.restore();
+    backgroundSound.play()
 
       for (let i = 0; i < words.length; i++) {
         words[i].x -= words[i].speed;
