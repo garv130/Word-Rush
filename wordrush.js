@@ -1,4 +1,5 @@
 let score = 0;
+let isSpawning = false;
 //background
 let background;
 let backgroundWidth = 640;
@@ -20,7 +21,7 @@ let character = {
 
 let words = [];
 let currentInput = "";
-let wordSpeed = 1.5;
+let wordSpeed = 2;
 
 //words
 class Word{
@@ -33,10 +34,38 @@ class Word{
     }
 
 
-    draw(){
-        context.font = "24px Courier New";
+    draw(isActive){
+        context.font = "bold 28px Courier New";
+
+        if (isActive) {
+
+        let matchCount = 0;
+        for (let i = 0; i < currentInput.length; i++) {
+            if (this.text[i] === currentInput[i]) {
+                matchCount++;
+            } else {
+                break; 
+            }
+        }
+        
+        const correctPart = this.text.substring(0, matchCount);
+        const restPart = this.text.substring(matchCount);
+
+        
+        context.fillStyle = "lime";
+        context.fillText(correctPart, this.x, this.y);
+
+        
+        const correctWidth = context.measureText(correctPart).width;
+        context.fillStyle = "white";
+        context.fillText(restPart, this.x + correctWidth, this.y);
+    } 
+        else {
+        
         context.fillStyle = "white";
         context.fillText(this.text, this.x, this.y);
+    }
+        
     }
 
     update(){
@@ -79,12 +108,16 @@ window.onload = function(){
     }
 
     setInterval(() => {
-        const last = words[words.length - 1];
-        if (last && last.x > backgroundWidth - 200) return
+        if (isSpawning) return;
+        if (words.length > 0) return;
+
+        isSpawning = true;
         getRandomWord().then(wordText => {
             const x = backgroundWidth;
             const y = character.y + character.height / 2;
             words.push(new Word(wordText, x, y, wordSpeed));
+        }).finally(() => {
+            isSpawning = false;
         });
     }, 2000);
 
@@ -122,6 +155,25 @@ function update(){
     context.fillStyle = "red";
     context.textAlign = "left";
     context.fillText("Typed: " + currentInput, 10, 30);
+
+}
+
+function gameOver(){
+    document.getElementById("finalScore").textContent = score;
+    document.getElementById("gameOverScreen").style.display = "block";
+    backgroundSound.muted = true;
+}
+
+function restartGame(){
+
+    words = [];
+    currentInput = "";
+    wordSpeed = 2;
+    score = 0;
+    backgroundSound.muted = false;
+    backgroundSound.currentTime = 0; 
+
+    document.getElementById("gameOverScreen").style.display = "none";
 
 }
 
